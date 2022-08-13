@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!--favicon icon-->
+    <link rel="icon" href="/ddsFood.ico">
+    <title>Your cart</title>
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css"/>
+    <link rel="stylesheet" href="/vendor/border-box.css" type="text/css"/>
+    <link rel="stylesheet" href="/styles/main.css" type="text/css"/>
+    <link rel="stylesheet" href="/styles/layout.css" type="text/css"/>
+    <link rel="stylesheet" href="/styles/cart.css" type="text/css"/>
+    <!--Google Fonts-->
+    <link
+            href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700;800&family=Bebas+Neue&family=Satisfy&family=Quattrocento:wght@400;700&display=swap"
+            rel="stylesheet">
+    <!-- font awesome    -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+          integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+    <script type="text/javascript" src="/scripts/app.js"></script>
+</head>
+<body>
+<!--navBar Start-->
+<%- include("./partials/header") %>
+<!--navBar End-->
+<!-- banner Area Start-->
+<section id="banner" class="mt-4 pb-4">
+    <div class="container-lg">
+        <div class="row g-4 pt-5 justify-content-center align-items-center">
+            <div class="banner-inner col-md-5 text-center text-md-start">
+                <h3>Cart Page</h3>
+                <h1>CHECK YOUR ORDER</h1>
+                <p class="lead my-4 text-muted fw-bold">You're one click away from boundless taste!</p>
+                <!-- open sidebar / offcanvas -->
+            </div>
+            <div class="col-md-5 text-center d-none d-md-block">
+                <img src="assets/image/cart/banner2.png" class="img-fluid" alt="banner">
+            </div>
+        </div>
+    </div>
+</section>
+<!-- banner Area End -->
+<!-- cart area start -->
+<div id="cart-area" class="cart-area mt-4 pt-4 pb-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-12">
+                <div class="table-responsive mb-4">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th class="blank"></th>
+                            <th class="blank"></th>
+                            <th class="blank"></th>
+                            <th class="title-name">Product</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Quantity</th>
+                            <th>Total Price</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        <% for(const item of cartItems) { %>
+                          <tr>
+                            <button value="<%= item.id %>" style="display: none;"></button>
+                              <td class="table-close-btn">
+                                <a href="javascript:;">
+                                  <i class="fa-solid fa-xmark">
+                                    <button value="<%= item.id %>" style="display: none;"></button>
+                                  </i>
+                                </a>
+                              </td>
+                              <th scope="row"><img class="table-img" src="<%= item.image_url %>" alt="img"></th>
+                              <td colspan="2" class="item-name">
+                                  <div class="details">
+                                      <h5><%= item.name %></h5>
+                                  </div>
+                              </td>
+                              <td class="single-price">$<%= (item.price / 100).toFixed(2) %></td>
+                              <td class="table-quantity">
+                                  <form class="cart-quantity">
+                                      <div class="quantity buttons_added">
+                                          <input type="button" value="-" class="minus">
+                                          <input type="number" class="input-text qty text text-center" step="1"
+                                                 min="1"
+                                                 max="10000"
+                                                 name="quantity" value="<%= Number(item.quantity) %>">
+                                          <input type="button" value="+" class="plus">
+                                      </div>
+                                  </form>
+                              </td>
+                              <td class="total-price">$<%= (item.price * item.quantity / 100).toFixed(2) %></td>
+                          </tr>
+                      <% } %>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-lg-5">
+                <div class="order-cart-area">
+                    <div class="order-cart">
+                        <h5>Cart totals</h5>
+                        <ul>
+                            <li>Subtotal<span class="subTotal"></span></li>
+                            <li>Tax<span>10%</span></li>
+                            <li class="total">Total<span class="taxed-total"></span></li>
+                        </ul>
+                    </div>
+                    <form action="cart/submit-order-now" method="post">
+                      <button class="btn btn-warning submit-order w-100 fw-bold">Place Order</button>
+                    </form>
+                    <!-- <a class="btn btn-warning submit-order w-100 fw-bold" href="#">PLACE ORDER</a> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- cart area end -->
+<!-- back-to-top end -->
+<div class="back-to-top">
+    <span class="back-top"><i class="fas fa-angle-double-up"></i></span>
+</div>
+<!-- footer area start -->
+<%- include("./partials/footer") %>
+<!-- footer area end -->
+
+
+</body>
+</html>

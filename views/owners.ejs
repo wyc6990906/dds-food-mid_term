@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!--favicon icon-->
+    <link rel="icon" href="/ddsFood.ico">
+    <title>Your cart</title>
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css"/>
+    <link rel="stylesheet" href="/vendor/border-box.css" type="text/css"/>
+    <link rel="stylesheet" href="/styles/main.css" type="text/css"/>
+    <link rel="stylesheet" href="/styles/layout.css" type="text/css"/>
+    <link rel="stylesheet" href="/styles/owners_orders.css" type="text/css"/>
+    <!--Google Fonts-->
+    <link
+            href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700;800&family=Bebas+Neue&family=Satisfy&family=Quattrocento:wght@400;700&display=swap"
+            rel="stylesheet">
+    <!-- font awesome    -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+          integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+    <script type="text/javascript" src="/scripts/app.js"></script>
+    <script type="text/javascript" src="/scripts/owners_orders.js"></script>
+</head>
+<body>
+<!--navBar Start-->
+<%- include("./partials/header") %>
+<!--navBar End-->
+
+<!-- banner Area Start-->
+<section id="banner" class="mt-4 pb-4">
+    <div class="container-lg">
+        <div class="row g-4 pt-5 justify-content-center align-items-center">
+            <div class="banner-inner col-md-5 text-center text-md-start">
+                <h1>Your Orders</h1>
+            </div>
+            <div class="col-md-5 text-center d-none d-md-block">
+                <img src="assets/image/cart/banner2.png" class="img-fluid" alt="banner">
+            </div>
+        </div>
+    </div>
+</section>
+<!-- banner Area End -->
+
+<!-- cart area start -->
+<div id="orders-area" class="orders-area mt-4 pt-4 pb-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-12">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th class="blank">Order Number</th>
+                            <th class="blank"></th>
+                            <th>Customer: </th>
+                            <th></th>
+                            <th class="blank"></th>
+                            <th class="title-name">Items</th>
+                            <th scope="col">Total Price</th>
+                            <th>Order Recieved</th>
+                            <th>Estimated Time</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <% for(let i=0; i < templateVars.orderNumbers.length; i++)  { %>
+                        <tr>
+                            <td colspan="2"class="order_number"><%= templateVars.orderNumbers[i] %></td>
+                            <td>
+                              <p>Name: <%=templateVars.customers[i].customerFullName%></p>
+                              <br/>
+                              <p>Phone Number: <%=templateVars.customers[i].customerPhoneNumber%></p>
+
+
+
+                            </td>
+                            <td></td>
+                            <td colspan="2" class="item-name">
+                                <div class="details">
+                                    <% for(item of templateVars.allOrdersItems[i]){ %>
+                                    <p><span><%= item.quantity %></span>x <%= item.item %></p>
+                                    <% } %>
+                                </div>
+                            </td>
+                            <td>$<span class="order-total"><%=templateVars.orderSubTotals[i]%></span></td>
+                            <td><%=templateVars.orderCreationTimes[i]%></td>
+                            <td><div><form action="/orders/sendSMS" method="post">
+                              <input type="number" name="orderETA" min='0' value="0" class="form-control time-input" id="input1" placeholder="Quantity">
+                              <button class="btn btn-warning send-time-estimate" type="submit">Send Time Estimate</button>
+                            </form>
+                              <form action="/orders/order-complete" method="post">
+                                <input type="hidden" name="hello" value="<%=templateVars.orderNumbers[i]%>"/>
+                                <button class="btn btn-success order-complete" type="submit">Order Finished</button>
+                              </form>
+                            </div>
+                          </td>
+                        </tr>
+                        <% } %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-lg-5">
+                <div class="order-orders-area">
+                    <a class="btn btn-warning w-100" href="/menu">Back to Main Page</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- cart area end -->
+
+<!-- footer area start -->
+<%- include("./partials/footer") %>
+<!-- footer area end -->
+
+</body>
+</html>

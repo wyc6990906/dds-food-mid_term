@@ -1,0 +1,89 @@
+<!-- navbar start -->
+<header id="navBar" class="navbar-area">
+    <!--    <h1><%= user.uid %></h1>-->
+    <nav class="navbar navbar-expand-lg" style="background-color: #FAF7F2">
+        <div class="container-fluid fw-bold">
+            <a class="navbar-brand" href="/">
+                <img src="../assets/image/category/1.png" alt="logo" width="30" height="24"
+                     class="d-inline-block align-text-top">
+                DDS_Food
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 fw-bold mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/menu">Menu</a>
+                    </li>
+                    <% if(!user.email) { %>
+                        <!--   login -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="/login">Login</a>
+                        </li>
+                    <% } %>
+                    <% if(!user.email) { %>
+                        <!--   register -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="/register">Register</a>
+                        </li>
+                    <% } %>
+                    <% if(user.email) { %>
+                        <!--   register -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="/orders">Orders</a>
+                        </li>
+                    <% } %>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                </ul>
+                <div class="nav-right-part">
+                    <% if (!user['email']) { %>
+                        <ul class="navbar-nav me-auto sm-3 fw-bold mb-lg-0">
+                            <li class="phone-contact"><i class="fa-solid fa-phone"></i>
+                                +1-555-867-5309
+
+                            </li>
+                            <li class="menu-cart">
+                                <a href="/login">
+                                    <i style="color: blue;font-size: larger"
+                                       class="fa-solid fa-user"></i>
+                                </a></li>
+                        </ul>
+                    <% } else { %>
+                        <ul class="navbar-nav me-auto sm-3 fw-bold mb-lg-0">
+                            <li class="phone-contact">
+                                <% if (user['is_owner'] === null || user['is_owner'] === false ) { %>
+                                    <i class="fa-solid fa-user-check"></i>
+                                <% } else { %>
+                                    <i class="fa-solid fa-utensils"></i>
+                                <% } %>
+                                <%= user.first_name %>  <%= user.last_name %>
+                            </li>
+                            <% if (user['is_owner'] === false) { %>
+                                <li class="menu-cart"><a href="/cart"><i
+                                                style="color: black; font-size: larger; margin-right: 20px;"
+                                                class="fa-solid fa-cart-plus"></i>
+                                        <span id="cart-counter-display" class="topCartNum">0</span></a></li>
+
+                            <% } else { %>
+
+                            <% } %>
+                            <li class="logout">
+                                <a href="/logout">Logout</a>
+                            </li>
+                        </ul>
+                    <% } %>
+
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+<!-- navbar end -->

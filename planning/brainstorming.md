@@ -1,0 +1,36 @@
+- Page view for users will be different from restaurant
+- User heading
+  - Not Logged IN
+    - Login
+    - Sign up
+    - Menu
+    - About us
+  - Logged In
+    - Menu
+    - About us
+    - My orders
+      - order number
+      - Past Orders
+      - Current Orders
+    - My profile
+      - name
+      - phone number
+- Owner
+  - Not Logged IN
+    - Login
+    - Sign up
+    - Menu
+    - About us
+  - Logged in
+    - MENU
+      - stretch: talking point. edit the menu
+    - Incoming Orders
+      - Decline 
+        - Reason for decline (buttons with common reasons)
+      - Accept
+        - Counter for time (input/textarea)
+        - Button for sending notification (sends out generic message with the ~time)  
+    - Past Orders
+      - order number
+      
+  
